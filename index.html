@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PALILLO CALCULATOR</title>
+    <style>
+        body {
+            background-color: rgb(77, 90, 77);
+        }
+
+        .num-btn, .squareroot, .clr-btn, .operation-btn, .res-btn, .del-btn {
+            padding: 30px;
+            border: 5px solid #808836;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-size: 50px;
+            width: 150px;
+            height: 150px;
+            margin-top: 30px;
+            margin-right: 30px;
+            position: relative;
+            left: 17px;
+        }
+
+        .squareroot , .num-btn{
+            background-color: #DC5F00;
+        }
+
+        .clr-btn {
+            background-color: #f0dc2c;
+        }
+
+        .operation-btn , .squareroot {
+            background-color: #fca868;
+        }
+
+        .res-btn {
+            background-color: #f5ccad;
+        }
+
+        .del-btn {
+            background-color: orange;
+        }
+
+        .num-btn:hover, .squareroot:hover, .clr-btn:hover, .operation-btn:hover, .res-btn:hover, .del-btn:hover {
+            background-color: yellowgreen;
+        }
+
+        table {
+            border: 5px solid black;
+            width: 800px;
+            margin: 0 auto;
+            background-color: #EEEEEE;
+        }
+
+        .result {
+            padding: 25px;
+            color: black;
+            border-radius: 30px;
+            background-color: #686D76;
+            font-size: 70px;
+            width: 750px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        h1 {
+            font-size: 50px;
+            text-align: center;
+            border: 5px solid black;
+            background-color: #373A40;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            .num-btn, .squareroot, .clr-btn, .operation-btn, .res-btn, .del-btn {
+                font-size: 30px;
+                width: 100px;
+                height: 100px;
+                padding: 20px;
+                margin-top: 20px;
+                margin-right: 20px;
+                position: relative;
+                left: 17px;
+            }
+            .result {
+                font-size: 50px;
+                width: 600px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 35px;
+                padding: 5px;
+                width: 100%;
+            }
+            table {
+                width: 650px;
+                border-width: 3px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .num-btn, .squareroot, .clr-btn, .operation-btn, .res-btn, .del-btn {
+                font-size: 20px;
+                width: 60px;
+                height: 60px;
+                padding: 10px;
+                margin-top: 10px;
+                margin-right: 10px;
+                position: relative;
+                left: 10px;
+            }
+            .result {
+                font-size: 30px;
+                width: 300px;
+                padding: 10px;
+            }
+            h1 {
+                font-size: 25px;
+                padding: 5px;
+                width: 100%;
+            }
+            table {
+                width: 320px;
+                border-width: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td colspan="4"><h1>CALCULATOR</h1></td>
+        </tr>
+        <tr>
+            <td colspan="4"><input type="text" id="result" class="result"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="^2" onclick="sqr()" class="squareroot"></td>
+            <td><input type="button" value="%" onclick="percent()" class="num-btn"></td>
+            <td><input type="button" value="C" onclick="clr('C')" class="clr-btn"></td>
+            <td><input type="button" value="Del" onclick="del('del')" class="del-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="num(1)" class="num-btn"></td>
+            <td><input type="button" value="2" onclick="num(2)" class="num-btn"></td>
+            <td><input type="button" value="3" onclick="num(3)" class="num-btn"></td>
+            <td><input type="button" value="+" onclick="add('+')" class="operation-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="num(4)" class="num-btn"></td>
+            <td><input type="button" value="5" onclick="num(5)" class="num-btn"></td>
+            <td><input type="button" value="6" onclick="num(6)" class="num-btn"></td>
+            <td><input type="button" value="-" onclick="minus('-')" class="operation-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="num(7)" class="num-btn"></td>
+            <td><input type="button" value="8" onclick="num(8)" class="num-btn"></td>
+            <td><input type="button" value="9" onclick="num(9)" class="num-btn"></td>
+            <td><input type="button" value="*" onclick="multiply('*')" class="operation-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="0" onclick="num(0)" class="num-btn"></td>
+            <td><input type="button" value="." onclick="dot('.')" class="num-btn"></td>
+            <td><input type="button" value="=" onclick="result1('=')" class="res-btn"></td>
+            <td><input type="button" value="/" onclick="divide('/')" class="operation-btn"></td>
+        </tr>
+    </table>
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+
+        function num(number) {
+            currentInput += number;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function add() {
+            currentOperator = "+";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function minus() {
+            currentOperator = "-";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function multiply() {
+            currentOperator = "*";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function divide() {
+            currentOperator = "/";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function dot() {
+            currentInput += '.';
+            document.getElementById('result').value = currentInput;
+        }
+
+        function result1() {
+            const result = eval(currentInput);
+            document.getElementById('result').value = result;
+            currentInput = result.toString();
+            currentOperator = '';
+        }
+
+        function clr() {
+            document.getElementById('result').value = '';
+            currentInput = '';
+            currentOperator = '';
+        }
+
+        function del() {
+            currentInput = currentInput.slice(0, -1);
+            document.getElementById('result').value = currentInput;
+        }
+
+        function percent() {
+            const result = eval(currentInput) / 100;
+            document.getElementById('result').value = result;
+            currentInput = result.toString();
+        }
+
+        function sqr() {
+            const result = eval(currentInput) * currentInput;
+            document.getElementById('result').value = result;
+            currentInput = result.toString();
+        }
+    </script>
+</body>
+</html>
